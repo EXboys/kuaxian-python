@@ -1,0 +1,19 @@
+{
+  "name":"pyWinds",
+  "app":"default",
+  "user":"城西银泰店",
+  "ico":"imgs/icon.ico",
+  "opacity":1,
+  "main":{
+      "url":"main.html",
+      "width":1200,
+      "height":600
+  },
+  "dialog":{
+      "url":"dialogFrame.html",
+      "content":"dialogContent.html",
+      "opacity":0.95,
+      "width":500,
+      "height":400
+  }
+}

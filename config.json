@@ -1,0 +1,12 @@
+{
+  "message_queue": "redis://localhost:6379/db",
+  "webui": {
+    "username": "chenduan",
+    "password": "123456",
+    "need-auth": true,
+    "port": 5000
+  },
+  "scheduler" : {
+    "xmlrpc-host": "0.0.0.0"
+  }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="./css/common.css"/>
+		<script type="text/javascript" src="./js/jquery-2.0.2.min.js"></script>
+		<script type="text/javascript" src="./js/window.js"></script>
+		<style>
+			.main{
+				border:1px #49585f solid;
+				height:98%;
+				overflow:visible;
+				border-radius:4px;
+				-webkit-user-select: none;	
+			}
+            .win-content{
+				height:95%;
+				border-bottom-left-radius: 4px;
+	            border-bottom-right-radius: 4px;
+				background-image:-webkit-gradient(linear, 0 0, 0 30%, from(rgba(255,255,255,0)), to(#ffffff));
+			}
+			#main-iframe{
+				height:99.5%;
+			}
+
+		</style>
+		<script>
+			$(function(){
+				Drag.init();
+				reBg();
+				$("#main-iframe")[0].contentDocument.write(_window_.loadHtml());
+                _notifications_.showNotification("提示","osc_tweet_notice","成功！",5000)
+			});
+			function tweetSuccess(){
+				parent._notifications_.showNotification("提示","osc_tweet_notice","成功！",5000);
+				$(".win-close").click();
+			}
+		</script>
+	</head>
+	<body>
+		<div class="main">
+			<div class="win-title">
+				<span class="win-title-text">弹窗</span>
+				<span class="tools">
+					<a class="win-close" href="javascript:void(0)" onclick="windowClose()"></a>
+				</span>
+			</div>
+			<div class="win-content">
+				<iframe id="main-iframe" src="" frameborder="no" scrolling="no"></iframe>
+			</div>
+		</div>
+	</body>
+</html>

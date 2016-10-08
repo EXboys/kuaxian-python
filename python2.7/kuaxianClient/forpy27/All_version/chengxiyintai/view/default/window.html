@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="./css/common.css"/>
+		<script type="text/javascript" src="./js/jquery-2.0.2.min.js"></script>
+		<script type="text/javascript" src="./js/window.js"></script>
+         <!--<script>window["SCHEMETYPE"] = "http";</script>
+        <script type="text/javascript" src="http://cdn.ronghub.com/RongIMLib-2.2.2.min.js"></script>
+        <script type="text/javascript" src="./js/webIM.js"></script>-->
+        <script type="text/javascript">
+            function loadFrame(url){
+	            //$(".win-content #main-iframe").attr("src", url);
+                document.getElementById('main-iframe').src=url;
+            }
+        </script>
+	</head>
+	<body>
+		<div class="main">
+			<div class="win-title">
+				<span class="win-title-text">跨鲜后台</span>
+				<span class="tools">
+					<a class="win-skin" href="javascript:void(0)" onclick="skinItem()"></a>
+					<a class="win-min" href="javascript:void(0)" onclick="windowMin()"></a>
+					<a class="win-close" href="javascript:void(0)" onclick="windowClose()"></a>
+				</span>
+			</div>
+            <div id="skin-item"></div>
+			<div class="win-content">
+				<iframe id="main-iframe" src="http://yii.kuaxiango.com/backend/web/" frameborder="no"></iframe>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,107 @@
+<html>
+	<head>
+		<meta http-equiv=Content-Type content="text/html;charset=utf-8">
+		<link rel="stylesheet" type="text/css" href="./css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="./js/jquery-poshytip/tip-yellow/tip-yellow.css"/>
+		<script type="text/javascript" src="./js/jquery-2.0.2.min.js"></script>
+		<script type="text/javascript" src="./js/jquery-poshytip/jquery.poshytip.min.js"></script>
+		<script>
+			$(function(){
+				parent.clearBg();
+				//parent.hiddenSkinBtn();
+				
+				$('#email').poshytip({
+					content: '请输入帐号/邮箱！',
+					showOn: 'none',
+					alignTo: 'target',
+					alignX: 'inner-left',
+					offsetX: 0,
+					offsetY: 5,
+					timeOnScreen:1500
+				});
+				$('#password').poshytip({
+					content: '请输入密码！',
+					showOn: 'none',
+					alignTo: 'target',
+					alignX: 'inner-left',
+					offsetX: 0,
+					offsetY: 5,
+					timeOnScreen:1500
+				});
+				//
+				if(window.localStorage.username)
+					$("#email").val(window.localStorage.username);
+				if(window.localStorage.rememberPwd&&window.localStorage.rememberPwd==="true"){
+					$("#password").val(window.localStorage.password);
+					$("#remember-pwd").attr("checked","checked");
+				}
+				if(window.localStorage.autoLogin&&window.localStorage.autoLogin==="true"){
+					$("#auto-login").attr("checked","checked");
+					login();
+				}
+				
+			});
+			function login(){
+				var username = $("#email").val();
+				if(username===""){
+					$("#email").focus().poshytip('show', 2000);
+					return;
+				}
+				var password = $("#password").val();
+				if(password===""){
+					$("#password").focus().poshytip('show', 2000);
+					return;
+				}
+				$(".login-form,.lodding-mask").toggle();
+				api.login(username,password,function(data){
+					$(".login-form,.lodding-mask").toggle();
+					if(data){
+						if(data["oschina"]["result"]["errorCode"]==="0")
+	               	 		alert(data["oschina"]["result"]["errorMessage"]);
+	            		else if(data["oschina"]["result"]["errorCode"]==="1"){//登陆成功
+	            			window.localStorage.username = username;
+	            			window.localStorage.password = password;
+	            			window.localStorage.rememberPwd = $("#remember-pwd").is(":checked");
+	            			window.localStorage.autoLogin = $("#auto-login").is(":checked");
+	            			window.localStorage.userSpace = "http://my.oschina.net/u/"+data["oschina"]["user"]["uid"]+"/home";
+	            			parent._service_.setUserSpace(window.localStorage.userSpace);
+	            			parent._service_.getUserDataStart();	
+	                		parent.loginOK(data);
+	                	}
+               		}else{
+               			alert("亲,登录失败哦,可能有以下原因:\n\n1:检查您的网络状况,是否自己网络问题\n2:红薯又被爆菊了");
+               		}
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<div class="login-form">
+			<ul>
+				<li>
+					<div class="logo_s2"></div>
+				</li>
+				<li>
+					<input type="text" id="email" class="l-input" placeholder="帐号/邮箱"/>
+				</li>
+				<li>
+					<input type="password" id="password" class="l-input" placeholder="密码"/>
+				</li>
+				<li>
+					<label class="checkbox checkbox1">
+						<input type="checkbox" id="remember-pwd"/>
+						记住密码
+					</label>
+					<label class="checkbox  checkbox2">
+						<input type="checkbox" id="auto-login"/>
+						自动登陆
+					</label>
+				</li>
+				<li>
+					<button onclick="login()">登&nbsp;&nbsp;&nbsp;录</button>
+				</li>
+			</ul>
+		</div>
+		<div class="lodding-mask" style="display: none;"></div>
+	</body>
+</html>
