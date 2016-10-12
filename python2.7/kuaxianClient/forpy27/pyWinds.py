@@ -29,8 +29,7 @@ def main(args):
     app.MainWin.show()
     splash.finish(app.MainWin)
     createTray()
-    host = '114.215.209.164'
-    # host = 'localhost'
+    host = 'localhost'
     thread = Worker(None,host,1234,app.AppUser) #子进程
     thread.start()
     App.exec_()
